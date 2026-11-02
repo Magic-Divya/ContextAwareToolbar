@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Studio | HCI Experiment 12</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="app" id="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo">A</div>
+            <div>
+                <h2>Adaptive Studio</h2>
+                <small>HCI INTERACTION LAB</small>
+            </div>
+        </div>
+
+        <div class="sidebar-heading">WORKSPACE</div>
+
+        <button class="nav-item active" data-page="editor">
+            <span>▦</span> Adaptive Editor
+        </button>
+
+        <button class="nav-item" data-page="analytics">
+            <span>▥</span> Usability Analytics
+        </button>
+
+        <button class="nav-item" data-page="shortcuts">
+            <span>⌘</span> Keyboard Shortcuts
+        </button>
+
+        <div class="sidebar-heading">INSERT OBJECT</div>
+
+        <button class="insert-btn" data-add="text">
+            <span class="insert-icon">T</span>
+            <span><b>Text</b><small>Add a text element</small></span>
+            <span class="plus">+</span>
+        </button>
+
+        <button class="insert-btn" data-add="image">
+            <span class="insert-icon">▧</span>
+            <span><b>Image</b><small>Add a visual element</small></span>
+            <span class="plus">+</span>
+        </button>
+
+        <button class="insert-btn" data-add="shape">
+            <span class="insert-icon">◇</span>
+            <span><b>Shape</b><small>Add a design shape</small></span>
+            <span class="plus">+</span>
+        </button>
+
+        <button class="insert-btn" data-add="table">
+            <span class="insert-icon">▤</span>
+            <span><b>Table</b><small>Add editable table</small></span>
+            <span class="plus">+</span>
+        </button>
+
+        <button class="insert-btn" data-add="video">
+            <span class="insert-icon">▷</span>
+            <span><b>Video</b><small>Add a media element</small></span>
+            <span class="plus">+</span>
+        </button>
+
+        <div class="sidebar-bottom">
+            <div class="profile-avatar">DT</div>
+            <div class="profile-info">
+                <b>Design Workspace</b>
+                <small>Experiment 12</small>
+            </div>
+            <button id="themeToggle" class="icon-button" title="Toggle theme">☾</button>
+        </div>
+    </aside>
+
+    <!-- Main application -->
+    <main class="main-area">
+
+        <header class="topbar">
+            <div>
+                <div class="breadcrumb">Workspace / <b id="pageBreadcrumb">Adaptive Editor</b></div>
+                <h1 id="pageTitle">Context-Aware Editor</h1>
+            </div>
+
+            <div class="top-actions">
+                <span class="saved-indicator">
+                    <span class="status-dot"></span> Local session
+                </span>
+
+                <button class="secondary-btn" id="undoBtn" title="Ctrl+Z">↶ Undo</button>
+                <button class="secondary-btn" id="redoBtn" title="Ctrl+Y">↷ Redo</button>
+                <button class="primary-btn" id="resetBtn">↻ Reset</button>
+            </div>
+        </header>
+
+        <!-- Editor page -->
+        <section id="editorPage" class="page active-page">
+
+            <div class="welcome-row">
+                <div>
+                    <h2>Your adaptive workspace</h2>
+                    <p>Select an object to reveal its relevant editing tools.</p>
+                </div>
+                <div class="context-badge">
+                    <span class="status-dot"></span>
+                    <span id="contextStatus">No object selected</span>
+                </div>
+            </div>
+
+            <!-- Adaptive toolbar -->
+            <section class="toolbar-card">
+                <div class="toolbar-header">
+                    <div>
+                        <h3>Adaptive Toolbar</h3>
+                        <p id="toolbarDescription">Select an object to customize your tools.</p>
+                    </div>
+                    <span class="adaptive-label">● CONTEXT AWARE</span>
+                </div>
+
+                <div class="toolbar-tools" id="toolbarTools">
+                    <button class="tool-btn" data-action="undo" title="Undo">↶ <span>Undo</span></button>
+                    <button class="tool-btn" data-action="redo" title="Redo">↷ <span>Redo</span></button>
+                    <button class="tool-btn" data-action="zoomIn" title="Zoom in">＋ <span>Zoom</span></button>
+                    <button class="tool-btn" data-action="deselect" title="Deselect">⊘ <span>Deselect</span></button>
+                </div>
+
+                <div class="toolbar-footer">
+                    <span>TOOLSET</span>
+                    <b id="toolCount">4 available tools</b>
+                    <span class="footer-separator">•</span>
+                    <span id="toolbarHint">Context changes automatically</span>
+                </div>
+            </section>
+
+            <!-- Workspace and properties -->
+            <div class="workspace-layout">
+
+                <section class="workspace-card">
+                    <div class="workspace-header">
+                        <div>
+                            <h3>Design Canvas</h3>
+                            <p>Click to select · Drag to move · Ctrl-click to multi-select</p>
+                        </div>
+                        <div class="canvas-controls">
+                            <button id="zoomOutBtn" class="icon-button" title="Zoom out">−</button>
+                            <span id="zoomLabel">100%</span>
+                            <button id="zoomInBtn" class="icon-button" title="Zoom in">+</button>
+                        </div>
+                    </div>
+
+                    <div class="canvas-viewport" id="canvasViewport">
+                        <div id="designCanvas" class="design-canvas">
+
+                            <div class="canvas-title">
+                                <span class="eyebrow">DESIGN CONCEPT / 2026</span>
+                                <h2>Creative Thinking</h2>
+                                <p>Every great idea begins with a different perspective.</p>
+                            </div>
+
+                            <div class="canvas-object text-object"
+                                 data-type="text" data-id="text-1"
+                                 tabindex="0" style="left:30px;top:155px">
+                                <div class="object-content" contenteditable="false">
+                                    <h3>Think beyond limits.</h3>
+                                    <p>Select this text to reveal typography tools.</p>
+                                </div>
+                            </div>
+
+                            <div class="canvas-object image-object"
+                                 data-type="image" data-id="image-1"
+                                 tabindex="0" style="left:35px;top:260px">
+                                <div class="image-placeholder">
+                                    <span class="image-symbol">▧</span>
+                                    <b>Visual Concept</b>
+                                    <small>Illustration placeholder</small>
+                                </div>
+                            </div>
+
+                            <div class="canvas-object shape-object"
+                                 data-type="shape" data-id="shape-1"
+                                 tabindex="0" style="left:265px;top:180px">
+                                <div class="shape-inner"></div>
+                            </div>
+
+                            <div class="canvas-object table-object"
+                                 data-type="table" data-id="table-1"
+                                 tabindex="0" style="left:265px;top:300px">
+                                <table>
+                                    <thead>
+                                        <tr><th>Task</th><th>Status</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Research</td><td>Done</td></tr>
+                                        <tr><td>Design</td><td>In progress</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="canvas-object video-object"
+                                 data-type="video" data-id="video-1"
+                                 tabindex="0" style="left:450px;top:175px">
+                                <div class="video-placeholder">
+                                    <button class="play-symbol" tabindex="-1">▶</button>
+                                    <b>Video Preview</b>
+                                    <small>Demo media object</small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="canvas-footer">
+                        <span>✥ Drag objects to reposition them</span>
+                        <span id="selectionCount">0 objects selected</span>
+                    </div>
+                </section>
+
+                <!-- Properties -->
+                <aside class="properties-card">
+                    <div class="properties-heading">
+                        <div>
+                            <h3>Properties</h3>
+                            <p>Contextual object controls</p>
+                        </div>
+                        <span class="properties-icon">⚙</span>
+                    </div>
+
+                    <div id="propertiesContent">
+                        <div class="empty-properties">
+                            <div class="empty-icon">✳</div>
+                            <h4>Nothing selected</h4>
+                            <p>Choose an object on the canvas to view its properties.</p>
+                        </div>
+                    </div>
+
+                    <div class="selection-summary">
+                        <span class="status-dot"></span>
+                        <div>
+                            <b id="selectedObjectName">No selection</b>
+                            <small id="selectedObjectType">Waiting for interaction</small>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Activity feed -->
+            <section class="activity-card">
+                <div class="activity-header">
+                    <div>
+                        <h3>Recent Activity</h3>
+                        <p>Live interaction feedback</p>
+                    </div>
+                    <button id="clearActivity" class="text-button">Clear history</button>
+                </div>
+                <div id="activityList" class="activity-list">
+                    <div class="activity-empty">Your interactions will appear here.</div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Analytics page -->
+        <section id="analyticsPage" class="page">
+            <div class="page-intro">
+                <h2>Usability Analytics</h2>
+                <p>Observe how the adaptive toolbar responds to user interactions.</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span>Total Interactions</span>
+                    <strong id="metricInteractions">0</strong>
+                    <small>Recorded actions</small>
+                </div>
+                <div class="metric-card">
+                    <span>Context Changes</span>
+                    <strong id="metricContexts">0</strong>
+                    <small>Toolbar adaptations</small>
+                </div>
+                <div class="metric-card">
+                    <span>Tools Used</span>
+                    <strong id="metricTools">0</strong>
+                    <small>Distinct tools used</small>
+                </div>
+                <div class="metric-card">
+                    <span>Interaction Errors</span>
+                    <strong id="metricErrors">0</strong>
+                    <small>Failed actions</small>
+                </div>
+            </div>
+
+            <section class="report-card">
+                <div class="activity-header">
+                    <div>
+                        <h3>Interaction Summary</h3>
+                        <p>Session statistics based on actions recorded in this browser session.</p>
+                    </div>
+                    <button class="primary-btn" id="exportAnalytics">Export CSV</button>
+                </div>
+                <div id="analyticsSummary" class="analytics-summary"></div>
+            </section>
+        </section>
+
+        <!-- Keyboard shortcuts page -->
+        <section id="shortcutsPage" class="page">
+            <div class="page-intro">
+                <h2>Keyboard Shortcuts</h2>
+                <p>Support faster interaction with familiar keyboard commands.</p>
+            </div>
+
+            <section class="report-card">
+                <div class="shortcut-row"><span>Undo last change</span><kbd>Ctrl + Z</kbd></div>
+                <div class="shortcut-row"><span>Redo last change</span><kbd>Ctrl + Y</kbd></div>
+                <div class="shortcut-row"><span>Delete selected objects</span><kbd>Delete</kbd></div>
+                <div class="shortcut-row"><span>Deselect objects</span><kbd>Esc</kbd></div>
+                <div class="shortcut-row"><span>Duplicate selected object</span><kbd>Ctrl + D</kbd></div>
+                <div class="shortcut-row"><span>Bold selected text</span><kbd>Ctrl + B</kbd></div>
+                <div class="shortcut-row"><span>Italic selected text</span><kbd>Ctrl + I</kbd></div>
+                <div class="shortcut-row"><span>Save canvas as JSON</span><kbd>Ctrl + S</kbd></div>
+            </section>
+        </section>
+
+        <footer class="app-footer">
+            <span>HCI LAB · EXPERIMENT 12</span>
+            <span>Context-Aware Adaptive Toolbar</span>
+        </footer>
+
+    </main>
+</div>
+
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
